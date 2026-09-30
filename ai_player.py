@@ -1,5 +1,5 @@
 import json
-from openai import OpenAI
+from openai import OpenAI #OpenAI is imported to the program to be integrated with the bot
 
 
 class AIPlayer:

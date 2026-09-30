@@ -10,7 +10,7 @@ class Player:
     is_ai: bool = False
     role: Optional[str] = None
 
-
+# dataclass stuff
 @dataclass
 class GameState:
     players: Dict[str, Player] = field(default_factory=dict)
@@ -38,7 +38,7 @@ class GameState:
 
     def add_ai(self, key: str, name: str):
         self.players[key] = Player(key=key, name=name, is_ai=True)
-
+# The amount of players that are required to start the game
     def start(self, ai_key: str, ai_name: str):
         if len(self.players) != 2:
             raise ValueError("Exactly two human players are required.")
@@ -117,14 +117,14 @@ class GameState:
 
     def ai_player(self) -> Player:
         return next(p for p in self.players.values() if p.is_ai)
-
+# Lines 124-135 display the status and rules of the game
     def ai_private_context(self) -> str:
         ai = self.ai_player()
         return f"""
 You are playing Three Shadows as {ai.name}.
-Your secret role is: {ai.role}.
+Your secret role is: {ai.role}. 
 
-Rules:
+Rules:              
 - There are three players.
 - One player is the Shadow.
 - Investigators win if the Shadow is eliminated.
@@ -135,7 +135,7 @@ Rules:
 - The Python game engine determines the actual winner.
 
 Public players:
-{", ".join(self.public_players())}
+{", ".join(self.public_players())} 
 
 Recent public discussion:
 {chr(10).join(self.discussion[-20:]) or "(No discussion yet)"}

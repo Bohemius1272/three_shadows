@@ -1,6 +1,6 @@
 import os
 import json
-import discord
+import discord #this is how i integrate the bot to use Discord's API
 from discord import app_commands
 from dotenv import load_dotenv
 
@@ -10,7 +10,7 @@ from ai_player import AIPlayer
 load_dotenv()
 
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
-OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-5.6")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-5.6")     #ai_player and bot has to detect Discord token and OpenAI key
 AI_NAME = os.getenv("AI_PLAYER_NAME", "ShadowBot")
 
 if not DISCORD_TOKEN:
@@ -105,12 +105,12 @@ async def start(interaction: discord.Interaction):
     await interaction.response.send_message(
         "🎭 **The game has started!**\n"
         "There are 3 players: two humans and the AI.\n\n"
-        "Roles are private. Discuss using `/say <message>`.\n"
+        "Roles are private. Discuss using `/say <message>`.\n" #how the discord bot would usually react
         "When ready, vote using `/vote @player`."
     )
 
 
-@tree.command(name="say", description="Send a public discussion message.")
+@tree.command(name="say", description="Send a public discussion message.") #makes you say a public discussion message
 @app_commands.describe(message="What you want to say to the other players.")
 async def say(interaction: discord.Interaction, message: str):
     player = find_human_by_discord_user(interaction.user)
